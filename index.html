@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đặt hàng qua Zalo</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+    h1 { color: #2c3e50; }
+    .product { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    label { font-weight: bold; display: block; margin-bottom: 5px; }
+    input[type="number"] { width: 60px; padding: 5px; font-size: 16px; }
+    .total { margin-top: 15px; font-weight: bold; font-size: 18px; }
+    button {
+      background: #27ae60; color: white; border: none; padding: 15px;
+      font-size: 18px; width: 100%; border-radius: 8px; cursor: pointer;
+    }
+    button:hover { background: #219150; }
+  </style>
+</head>
+<body>
+
+  <h1>Đặt hàng qua Zalo</h1>
+
+  <div class="product">
+    <label for="cameraQty">Camera Ezviz (850.000đ):</label>
+    <input type="number" id="cameraQty" min="0" value="0" />
+  </div>
+
+  <div class="product">
+    <label for="denQty">Đèn năng lượng mặt trời (1.350.000đ):</label>
+    <input type="number" id="denQty" min="0" value="0" />
+  </div>
+
+  <div class="total" id="totalPrice">Tổng tiền: 0 VNĐ</div>
+
+  <button id="sendOrderBtn">Gửi đơn hàng qua Zalo</button>
+
+  <script>
+    const cameraPrice = 850000;
+    const denPrice = 1350000;
+    const zaloNumber = "0916183038";
+
+    const cameraQtyInput = document.getElementById("cameraQty");
+    const denQtyInput = document.getElementById("denQty");
+    const totalPriceDiv = document.getElementById("totalPrice");
+    const sendOrderBtn = document.getElementById("sendOrderBtn");
+
+    function updateTotal() {
+      const cameraQty = parseInt(cameraQtyInput.value) || 0;
+      const denQty = parseInt(denQtyInput.value) || 0;
+      const total = cameraQty * cameraPrice + denQty * denPrice;
+      totalPriceDiv.textContent = `Tổng tiền: ${total.toLocaleString('vi-VN')} VNĐ`;
+    }
+
+    cameraQtyInput.addEventListener("input", updateTotal);
+    denQtyInput.addEventListener("input", updateTotal);
+
+    sendOrderBtn.addEventListener("click", () => {
+      const cameraQty = parseInt(cameraQtyInput.value) || 0;
+      const denQty = parseInt(denQtyInput.value) || 0;
+
+      if (cameraQty === 0 && denQty === 0) {
+        alert("Vui lòng chọn ít nhất 1 sản phẩm.");
+        return;
+      }
+
+      const total = cameraQty * cameraPrice + denQty * denPrice;
+      const message = 
+        `Đơn hàng từ khách:\n` +
+        (cameraQty > 0 ? `- Camera Ezviz: x${cameraQty}\n` : "") +
+        (denQty > 0 ? `- Đèn năng lượng mặt trời: x${denQty}\n` : "") +
+        `Tổng tiền: ${total.toLocaleString('vi-VN')} VNĐ`;
+
+      const zaloLink = `https://zalo.me/${zaloNumber}?text=${encodeURIComponent(message)}`;
+      window.open(zaloLink, "_blank");
+    });
+
+    updateTotal();
+  </script>
+
+</body>
+</html>
