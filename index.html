@@ -7,7 +7,12 @@
   <style>
     body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
     h1 { color: #2c3e50; }
-    .product { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .product {
+      background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 20px;
+    }
+    .product img { width: 120px; border-radius: 10px; }
+    .product-details { flex-grow: 1; }
     label { font-weight: bold; display: block; margin-bottom: 5px; }
     input[type="number"] { width: 60px; padding: 5px; font-size: 16px; }
     .total { margin-top: 15px; font-weight: bold; font-size: 18px; }
@@ -23,13 +28,19 @@
   <h1>Đặt hàng qua Zalo</h1>
 
   <div class="product">
-    <label for="cameraQty">Camera Ezviz (850.000đ):</label>
-    <input type="number" id="cameraQty" min="0" value="0" />
+    <img src="ezviz.jpg" alt="Camera Ezviz" />
+    <div class="product-details">
+      <label for="cameraQty">Camera Ezviz (850.000đ):</label>
+      <input type="number" id="cameraQty" min="0" value="0" />
+    </div>
   </div>
 
   <div class="product">
-    <label for="denQty">Đèn năng lượng mặt trời (1.350.000đ):</label>
-    <input type="number" id="denQty" min="0" value="0" />
+    <img src="nlmt.jpg" alt="Đèn năng lượng mặt trời" />
+    <div class="product-details">
+      <label for="denQty">Đèn năng lượng mặt trời (1.350.000đ):</label>
+      <input type="number" id="denQty" min="0" value="0" />
+    </div>
   </div>
 
   <div class="total" id="totalPrice">Tổng tiền: 0 VNĐ</div>
